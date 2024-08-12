@@ -4,7 +4,7 @@
   "private": true,
   "scripts": {},
   "engines": {
-    "node": ">=18.17.x",
+    "node": ">=20.16.x",
     "pnpm": ">=9.x",
     "npm": "Please use pnpm to install dependencies"
   },
