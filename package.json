@@ -1,4 +1,15 @@
+{
   "name": "minikani-monorepo",
   "version": "1.0.0",
   "private": true,
   "scripts": {},
+  "engines": {
+    "node": ">=18.17.x",
+    "pnpm": ">=9.x",
+    "npm": "Please use pnpm to install dependencies"
+  },
+  "packageManager": "pnpm@9.7.0",
+  "volta": {
+    "node": "20.16.0"
+  }
+}
