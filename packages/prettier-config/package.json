@@ -1,0 +1,16 @@
+{
+  "name": "@minikani/prettier-config",
+  "version": "1.0.0",
+  "type": "module",
+  "exports": {
+    ".": "./index.js"
+  },
+  "main": "index.js",
+  "scripts": {
+    "clean": "rimraf .turbo node_modules"
+  },
+  "prettier": "@minikani/prettier-config",
+  "dependencies": {
+    "prettier-plugin-packagejson": "^2.5.1"
+  }
+}

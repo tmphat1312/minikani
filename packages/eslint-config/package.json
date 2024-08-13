@@ -1,0 +1,16 @@
+{
+  "name": "@minikani/eslint-config",
+  "version": "1.0.0",
+  "type": "module",
+  "exports": {
+    "./base": "./base.js"
+  },
+  "scripts": {
+    "clean": "rimraf .turbo node_modules"
+  },
+  "devDependencies": {
+    "@eslint/js": "^9.9.0",
+    "eslint-config-prettier": "^9.1.0",
+    "eslint-plugin-prettier": "^5.2.1"
+  }
+}
