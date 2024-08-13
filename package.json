@@ -2,13 +2,29 @@
   "name": "minikani-monorepo",
   "version": "1.0.0",
   "private": true,
-  "scripts": {},
+  "packageManager": "pnpm@9.7.0",
   "engines": {
     "node": ">=20.16.x",
-    "pnpm": ">=9.x",
-    "npm": "Please use pnpm to install dependencies"
+    "npm": "Please use pnpm to install dependencies",
+    "pnpm": ">=9.x"
   },
-  "packageManager": "pnpm@9.7.0",
+  "scripts": {
+    "format-js": "lint-staged -v"
+  },
+  "devDependencies": {
+    "eslint": "^9.9.0",
+    "lint-staged": "^15.2.8",
+    "prettier": "^3.3.3"
+  },
+  "lint-staged": {
+    "{apps,packages}/**/*.{js,jsx,ts,tsx}": [
+      "prettier --write"
+    ],
+    "**/*.{json,jsonc}": [
+      "prettier --write"
+    ]
+  },
+  "prettier": "@minikani/prettier-config",
   "volta": {
     "node": "20.16.0"
   }
