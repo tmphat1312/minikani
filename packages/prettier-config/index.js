@@ -10,4 +10,4 @@ const config = {
   plugins: ['prettier-plugin-packagejson'],
 };
 
-module.exports = config;
+export default config;
