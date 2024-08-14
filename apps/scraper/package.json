@@ -1,0 +1,19 @@
+{
+  "name": "scraper",
+  "version": "1.0.0",
+  "type": "module",
+  "main": "index.js",
+  "scripts": {
+    "clean": "rimraf db.json .turbo",
+    "lint": "eslint .",
+    "start": "node index.js"
+  },
+  "dependencies": {
+    "cheerio": "^1.0.0",
+    "lowdb": "^7.0.1",
+    "ora": "^8.0.1"
+  },
+  "devDependencies": {
+    "@minikani/eslint-config": "workspace:*"
+  }
+}
