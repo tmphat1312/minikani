@@ -3,8 +3,8 @@
   "version": "1.0.0",
   "private": true,
   "scripts": {
+    "check-format": "prettier --check \"**/*.{js,jsx,json,jsonc,md,css}\"",
     "clean": "rimraf .turbo node_modules",
-    "format": "prettier --write \"**/*.{js,jsx,json,jsonc,md,css}\"",
     "lint": "turbo run lint --",
     "pre-commit": "lint-staged --verbose --concurrent false",
     "prepare": "husky"
