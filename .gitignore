@@ -29,3 +29,6 @@ dist/
 
 # turbo
 .turbo
+
+# local db
+db.json

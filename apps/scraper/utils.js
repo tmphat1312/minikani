@@ -27,3 +27,7 @@ export const customMapping = curry(function ($, scope$, selector, fn) {
     .map((_, el) => fn($(el)))
     .toArray();
 });
+
+export function wait(ms) {
+  return new Promise((resolve) => setTimeout(resolve, ms));
+}
