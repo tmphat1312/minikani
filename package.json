@@ -20,6 +20,7 @@
   },
   "prettier": "@minikani/prettier-config",
   "devDependencies": {
+    "@turbo/gen": "^2.0.13",
     "eslint": "^9.9.0",
     "globals": "^15.9.0",
     "husky": "^9.1.4",
