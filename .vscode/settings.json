@@ -10,6 +10,6 @@
   "files.readonlyInclude": {
     "**/node_modules/**": true,
     "**/.turbo/**": true,
-    "{**/pnpm-lock.yaml,**/pnpm-workspace.yaml}": true
+    "{**/pnpm-lock.yaml}": true
   }
 }
