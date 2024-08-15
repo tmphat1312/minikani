@@ -1,12 +1,14 @@
 import js from '@eslint/js';
 import prettier from 'eslint-plugin-prettier/recommended';
 import globals from 'globals';
+import ts from 'typescript-eslint';
 
-export default [
+export default ts.config(
   js.configs.recommended,
+  ...ts.configs.recommended,
   prettier,
   {
-    files: ['**/*.ts', '**/*.tsx', '**/*.js', '**/*.jsx'],
+    files: ['**/*.{ts,tsx,js,jsx}'],
     rules: {
       'no-unused-vars': 'warn',
       'no-undef': 'warn',
@@ -15,7 +17,8 @@ export default [
     languageOptions: {
       globals: {
         ...globals.node,
+        ...globals.browser,
       },
     },
   },
-];
+);

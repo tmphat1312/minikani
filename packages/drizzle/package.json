@@ -1,0 +1,8 @@
+{
+  "name": "@minikani/drizzle",
+  "version": "1.0.0",
+  "scripts": {},
+  "devDependencies": {
+    "typescript": "catalog:"
+  }
+}
