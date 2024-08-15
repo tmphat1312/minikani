@@ -1,10 +1,10 @@
 import js from '@eslint/js';
-import eslintPluginPrettierRecommended from 'eslint-plugin-prettier/recommended';
+import prettier from 'eslint-plugin-prettier/recommended';
 import globals from 'globals';
 
 export default [
   js.configs.recommended,
-  eslintPluginPrettierRecommended,
+  prettier,
   {
     files: ['**/*.ts', '**/*.tsx', '**/*.js', '**/*.jsx'],
     rules: {
