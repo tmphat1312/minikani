@@ -1,0 +1,10 @@
+{
+  "name": "@minikani/typescript-config",
+  "version": "1.0.0",
+  "exports": {
+    "./base": "./base.json",
+    "./react-library": "./react-library.json",
+    "./next": "./next.json",
+    "./internal-package": "./internal-package.json"
+  }
+}

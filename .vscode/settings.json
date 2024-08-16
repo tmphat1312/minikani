@@ -9,7 +9,32 @@
   },
   "files.readonlyInclude": {
     "**/node_modules/**": true,
-    "**/.turbo/**": true,
-    "{**/pnpm-lock.yaml,**/pnpm-workspace.yaml}": true
+    "{**/pnpm-lock.yaml}": true
+  },
+  "eslint.rules.customizations": [
+    {
+      "rule": "*",
+      "severity": "warn"
+    }
+  ],
+  "eslint.useFlatConfig": true,
+  "eslint.workingDirectories": [
+    {
+      "pattern": "apps/*/"
+    },
+    {
+      "pattern": "packages/*/"
+    }
+  ],
+  "typescript.enablePromptUseWorkspaceTsdk": true,
+  "typescript.preferences.autoImportFileExcludePatterns": [
+    "next/router.d.ts",
+    "next/dist/client/router.d.ts"
+  ],
+  "typescript.tsdk": "node_modules/typescript/lib",
+  "files.associations": {
+    "*.json.hbs": "json",
+    "*.js.hbs": "javascript",
+    "*.jsx.hbs": "javascriptreact"
   }
 }

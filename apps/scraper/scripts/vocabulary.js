@@ -1,5 +1,6 @@
 import { fromURL } from 'cheerio';
-import { multipleTexts, multipleHTML, customMapping } from '../utils.js';
+
+import { customMapping, multipleHTML, multipleTexts } from '../utils.js';
 
 export async function scrapeVocabulary(slug) {
   let $ = await fromURL(`https://www.wanikani.com/vocabulary/${slug}`);

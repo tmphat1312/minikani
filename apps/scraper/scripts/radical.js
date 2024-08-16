@@ -1,5 +1,6 @@
 import { fromURL } from 'cheerio';
-import { multipleTexts, multipleHTML } from '../utils.js';
+
+import { multipleHTML, multipleTexts } from '../utils.js';
 
 export async function scrapeRadical(slug) {
   let $ = await fromURL(`https://www.wanikani.com/radicals/${slug}`);
