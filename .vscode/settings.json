@@ -9,7 +9,6 @@
   },
   "files.readonlyInclude": {
     "**/node_modules/**": true,
-    "**/.turbo/**": true,
     "{**/pnpm-lock.yaml}": true
   },
   "eslint.rules.customizations": [
