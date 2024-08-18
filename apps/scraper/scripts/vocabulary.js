@@ -1,60 +1,99 @@
 import { fromURL } from 'cheerio';
 
-import { customMapping, multipleHTML, multipleTexts } from '../utils.js';
+scrapeVocabulary('大人').then((data) => console.log(data.context_sentences));
 
 export async function scrapeVocabulary(slug) {
   let $ = await fromURL(`https://www.wanikani.com/vocabulary/${slug}`);
-
-  const multipleTexts$ = multipleTexts($);
-  const multipleHTML$ = multipleHTML($);
-  const customMapping$ = customMapping($);
-
-  let meaning$ = $('#section-meaning');
-  let reading$ = $('#section-reading');
-  let context$ = $('#section-context');
-
-  let [primary_meaning, alternative_meanings, word_type] = multipleTexts$(
-    meaning$,
-  )(`.subject-section__meanings-items`);
-
-  // Eh!, this is so imperative, I don't like it
-  if (word_type == null) {
-    [word_type, alternative_meanings] = [alternative_meanings, null];
-  }
-
   return {
-    level: $(`a[class$="icon--level"]`).text(),
-    character: $(`[class$="icon--vocabulary"]`).text(),
-    primary_meaning,
-    alternative_meanings,
-    word_type,
-    meaning_explanation: multipleHTML$(meaning$)(`.subject-section__text`),
-    reading_explanation: multipleHTML$(reading$)(`.subject-section__text`),
-    readingWitAudios: customMapping$(reading$)('.reading-with-audio')(
-      (el$) => ({
-        reading: el$.find(`[lang="ja"]`).text(),
-        audios: customMapping$(el$)('li')((li$) => ({
-          sources: customMapping$(li$)('source')((source$) =>
-            source$.attr('src'),
-          ),
-          actor_name: li$.find('.reading-with-audio__voice-actor-name').text(),
-        })),
-      }),
-    ),
-    context_sentences: customMapping$(context$)('.subject-section__text')(
-      (el$) => {
-        let [jp_sentence, en_sentence] = multipleTexts$(el$)('p');
-        return { jp_sentence, en_sentence };
+    vocabulary: $.extract({
+      level: {
+        selector: `[class$="icon--level"]`,
+        value: (el) => Number($(el).text()),
       },
-    ),
-    patterns_of_use: multipleTexts$(context$)(
-      `.subject-collocations__pattern-name`,
-    ),
-    common_word_combinations: customMapping$(context$)('.context-sentences')(
-      (el$) => {
-        let [jp_sentence, en_sentence] = multipleTexts$(el$)('p');
-        return { jp_sentence, en_sentence };
+      character: `[class$="icon--vocabulary"]`,
+      primary_meaning: `.subject-section__meanings-items:first`,
+      alternative_meanings: {
+        selector: `.subject-section__meanings:eq(1)`,
+        value: (el) => {
+          let title = $(el).find('.subject-section__meanings-title').text();
+          let item = $(el).find('.subject-section__meanings-items').text();
+          return title.includes('Alternative') ? item : undefined;
+        },
       },
-    ),
+      word_types: {
+        selector: `.subject-section__meanings:last`,
+        value: (el) => {
+          let title = $(el).find('.subject-section__meanings-title').text();
+          let item = $(el).find('.subject-section__meanings-items').text();
+          return title.includes('Word') ? item : undefined;
+        },
+      },
+      meaning_explanation: [
+        {
+          selector: `#section-meaning .subject-section__text`,
+          value: (el) => $(el).html(),
+        },
+      ],
+      reading_explanation: [
+        {
+          selector: `#section-reading .subject-section__text`,
+          value: (el) => $(el).html(),
+        },
+      ],
+    }),
+    vocabulary_readings: $.extract({
+      character: `[class$="icon--vocabulary"]`,
+      reading_with_audios: [
+        {
+          selector: `.reading-with-audio`,
+          value: (el) => {
+            return $(el).extract({
+              reading: `[lang="ja"]`,
+              audios: [
+                {
+                  selector: `li`,
+                  value: {
+                    sources: {
+                      selector: `source`,
+                      value: (el) => $(el).attr('src'),
+                    },
+                    actor_name: `.reading-with-audio__voice-actor-name`,
+                  },
+                },
+              ],
+            });
+          },
+        },
+      ],
+    }),
+    context_sentences: $.extract({
+      character: `[class$="icon--vocabulary"]`,
+      sentences: [
+        {
+          selector: `#section-context .subject-section__text`,
+          value: (el) => {
+            return $(el).extract({
+              jp_sentence: `p:first`,
+              en_sentence: `p:last`,
+            });
+          },
+        },
+      ],
+    }),
+    patterns_of_use_context: $.extract({
+      character: `[class$="icon--vocabulary"]`,
+      patterns_of_use: [`.subject-collocations__pattern-name`],
+      common_word_combinations: [
+        {
+          selector: `.context-sentences`,
+          value: (el) => {
+            return $(el).extract({
+              jp_sentence: `p:first`,
+              en_sentence: `p:last`,
+            });
+          },
+        },
+      ],
+    }),
   };
 }
