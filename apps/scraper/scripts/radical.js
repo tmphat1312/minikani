@@ -1,28 +1,28 @@
 import { fromURL } from 'cheerio';
 
-import { multipleHTML, multipleTexts } from '../utils.js';
+scrapeRadical('ground').then(console.log);
 
 export async function scrapeRadical(slug) {
   let $ = await fromURL(`https://www.wanikani.com/radicals/${slug}`);
-
-  const multipleTexts$ = multipleTexts($);
-  const multipleHTML$ = multipleHTML($);
-
-  let meaning$ = $('#section-meaning');
-  let amalgamations$ = $('#section-amalgamations');
-
-  let [primary_meaning, alternative_meanings] = multipleTexts$(meaning$)(
-    `[class$="__meanings-items"]`,
-  );
-
   return {
-    level: $(`a[class$="icon--level"]`).text(),
-    character: $(`[class$="icon--radical"]`).text(),
-    primary_meaning,
-    alternative_meanings,
-    mnemonic: multipleHTML$(meaning$)(`.subject-section__text`),
-    foundInKanji: multipleTexts$(amalgamations$)(
-      `.subject-character__characters`,
-    ),
+    radical: $.extract({
+      level: {
+        selector: `[class$="icon--level"]`,
+        value: (el) => Number($(el).text()),
+      },
+      character: `[class$="icon--radical"]`,
+      primary_meaning: `[class$="__meanings-items"]:eq(0)`,
+      alternative_meanings: `[class$="__meanings-items"]:eq(1)`,
+      mnemonic: [
+        {
+          selector: '.subject-section__text',
+          value: (el) => $(el).html(),
+        },
+      ],
+    }),
+    found_in_kanjis: $.extract({
+      radical_name: `[class$="icon--radical"]`,
+      found_in_kanjis: ['.subject-character__characters'],
+    }),
   };
 }
