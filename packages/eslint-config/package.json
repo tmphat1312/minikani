@@ -9,7 +9,7 @@
     "clean": "rimraf .turbo node_modules"
   },
   "devDependencies": {
-    "@eslint/js": "^9.9.0",
+    "@eslint/js": "^9.9.1",
     "@types/eslint__js": "^8.42.3",
     "eslint-config-prettier": "^9.1.0",
     "eslint-plugin-prettier": "^5.2.1",
